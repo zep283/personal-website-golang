@@ -11,3 +11,4 @@ Simple golang website (:
 7. `docker build -f ./build/Dockerfile -t self-zep-lab --progress=plain --no-cache .`
 8. `docker run -d -p 8080:8080 self-zep-lab`
 9. GH Actions support - add .github/workflows/ci.yml and add corresponding secrets in repository settings
+    - https://github.com/marketplace/actions/build-and-push-docker-images#inputs 
