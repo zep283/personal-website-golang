@@ -13,3 +13,5 @@ Simple golang website (:
 9. GH Actions support - add .github/workflows/ci.yml and add corresponding secrets in repository settings
     - https://github.com/marketplace/actions/build-and-push-docker-images#inputs 
     - use tags to control which commits trigger build
+    - `docker pull zep283/personal-web-golang:latest`
+    - `docker run -d -p 8080:8080 zep283/personal-web-golang`
