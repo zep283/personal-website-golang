@@ -2,7 +2,8 @@ name: ci
 on:
   push:
     tags:        
-      - release
+      - release/*
+      - feature/*
       
 jobs:
   docker:
