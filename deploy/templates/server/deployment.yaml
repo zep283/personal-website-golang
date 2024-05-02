@@ -1,0 +1,87 @@
+{{- if .Values.server.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.server.name }}
+  labels:
+    {{- include "personal-web-golang.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.server.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "personal-web-golang.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.server.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "personal-web-golang.selectorLabels" . | nindent 8 }}
+        app: {{ .Values.server.name }}
+    spec:
+      {{- with .Values.server.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ .Values.server.serviceAccount.name }}
+      volumes:
+        {{- range .Values.server.storage.volumes }}
+        - name: {{ .name }}
+          {{- if .persistentVolumeClaim }}
+          persistentVolumeClaim:
+            claimName: {{ .persistentVolumeClaim.claimName }}
+          {{- end }}
+          {{- if .configMap }}
+          configMap:
+            name: {{ .configMap.name }}
+          {{- end }}
+        {{- end }}
+      securityContext:
+        {{- toYaml .Values.server.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.server.securityContext | nindent 12 }}
+          image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag | default .Chart.AppVersion }}"
+          {{- if $.Values.server.env }}
+          env:
+            {{- range $key, $value := $.Values.server.env }}
+            - name: {{ $value.name }}
+              value: {{ $value.value | quote }}
+            {{- end }}
+          {{- end }}
+          imagePullPolicy: {{ .Values.server.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.server.service.port }}
+              protocol: TCP
+          volumeMounts:
+            {{- range .Values.server.storage.volumeMounts }}
+            - mountPath: {{ .mountPath }}
+              name: {{ .name }}
+              subPath: {{ .subPath | quote }}
+            {{- end }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          resources:
+            {{- toYaml .Values.server.resources | nindent 12 }}
+      {{- with .Values.server.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.server.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

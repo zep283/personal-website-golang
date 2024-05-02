@@ -1,0 +1,108 @@
+server:
+  name: web-server
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: zep283/personal-web-golang
+    pullPolicy: Always
+    tag: latest
+  imagePullSecrets: []
+  env:
+    - name: PUID
+      value: 1000
+    - name: PGID
+      value: 1000
+    - name: TZ
+      value: America/Los_Angeles
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+  podAnnotations: {}
+  podSecurityContext: {}
+    # fsGroup: 2000
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    #runAsNonRoot: false
+    #runAsUser: 0
+  service:
+    type: ClusterIP
+    port: 8443
+  ingress:
+    enabled: true
+    annotations:
+      # kubernetes.io/ingress.class: "traefik"
+      # cert-manager.io/cluster-issuer: letsencrypt-staging
+      # acme.cert-manager.io/http01-edit-in-place: "true"
+      # traefik.ingress.kubernetes.io/router.middlewares: media-server-sso@kubernetescrd
+      # traefik.ingress.kubernetes.io/router.tls: "true"
+      #ingress.kubernetes.io/auth-type: forward
+      #ingress.kubernetes.io/auth-url: https://oauth.zep-lab.dev/oauth2/auth
+      #ingress.kubernetes.io/auth-trust-headers: "true"
+      #ingress.kubernetes.io/auth-signin: https://oauth.zep-lab.dev/oauth2/start?rd=$scheme://$best_http_host$request_uri
+      #ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: self.home.cloud.org
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+      # - hosts:
+      #   - code.zep-lab.dev
+      #   secretName: code-zep-lab-dev-tls
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1 
+          preference:
+            matchExpressions:
+            - key: kubernetes.io/node.type
+              operator: In
+              values:
+              - high-perf
+  storage: {}
+    # volumeMounts:
+    # - mountPath: /mnt/data/main
+    #   name: main
+    # - mountPath: /mnt/data/ext-drive1
+    #   name: ext-drive1
+    # #- mountPath: /mnt/data/ext-drive2
+    # #  name: ext-drive2
+    # - mountPath: /config/.kube
+    #   name: config
+    #   subPath: code
+    # volumes:
+    # - name: config
+    #   persistentVolumeClaim:
+    #     claimName: config-pvc
+    # - name: main
+    #   persistentVolumeClaim:
+    #     claimName: main-nas-pvc
+    # - name: ext-drive1
+    #   persistentVolumeClaim:
+    #     claimName: external-drive1-pvc
+   # - name: ext-drive2
+    #  persistentVolumeClaim:
+    #    claimName: external-drive2-pvc

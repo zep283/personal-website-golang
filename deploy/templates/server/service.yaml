@@ -1,0 +1,17 @@
+{{- if .Values.server.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.server.name }}
+  labels:
+    {{- include "personal-web-golang.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.server.service.type }}
+  ports:
+    - port: {{ .Values.server.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ .Values.server.name }}
+{{- end }}
