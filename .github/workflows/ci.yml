@@ -1,10 +1,9 @@
 name: ci
-
 on:
   push:
     tags:        
       - release
-
+      
 jobs:
   docker:
     runs-on: ubuntu-latest
