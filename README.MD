@@ -15,3 +15,4 @@ Simple golang website (:
     - use tags to control which commits trigger build
     - `docker pull zep283/personal-web-golang:latest`
     - `docker run -d -p 8080:8080 zep283/personal-web-golang`
+10. `helm upgrade --install self . -n personal-web`
