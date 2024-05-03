@@ -5,7 +5,7 @@ server:
   image:
     repository: zep283/personal-web-golang
     pullPolicy: Always
-    tag: latest
+    tag: 0.0.5
   imagePullSecrets: []
   env:
     - name: PUID
