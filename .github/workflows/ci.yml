@@ -27,4 +27,4 @@ jobs:
           file: ./build/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: zep283/personal-web-golang:latest, zep283/personal-web-golang:0.0.1
+          tags: zep283/personal-web-golang:latest, zep283/personal-web-golang:0.0.5
