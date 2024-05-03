@@ -2,40 +2,35 @@ package main
 
 import (
 	"net/http"
-	"text/template"
 
-	"github.com/gorilla/mux"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"golang.org/x/time/rate"
 )
 
 func main() {
-	router := mux.NewRouter()
+	e := echo.New()
 
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		tmpl, err := template.ParseFiles("templates/home.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	// Little bit of middlewares for housekeeping
+	e.Pre(middleware.RemoveTrailingSlash())
+	e.Use(middleware.Recover())
+	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(
+		rate.Limit(20),
+	)))
 
-		err = tmpl.Execute(w, "Zac")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-	})
-	router.HandleFunc("/blog", func(w http.ResponseWriter, r *http.Request) {
-		tmpl, err := template.ParseFiles("templates/home.html")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	// This will initiate our template renderer
+	NewTemplateRenderer(e, "templates/*.html")
 
-		err = tmpl.Execute(w, "Visitor")
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+	e.GET("/", func(e echo.Context) error {
+		return e.Render(http.StatusOK, "index", nil)
 	})
 
-	http.ListenAndServe(":8080", router)
+	e.GET("/about", func(e echo.Context) error {
+		res := map[string]interface{}{
+			"LinkedIn": "http://linkedin.com/in/zacpollack/",
+		}
+		return e.Render(http.StatusOK, "about", res)
+	})
+
+	e.Logger.Fatal(e.Start(":8080"))
 }
