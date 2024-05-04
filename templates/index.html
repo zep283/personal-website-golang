@@ -6,16 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>self.zep-lab.dev</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
-			background-color: #80797b;
+			background-color: rgba(0, 0, 0, 0.787);
         }
         header {
-            background-color: #333;
+            background-color: black;
             color: white;
             padding: 1rem 0;
             text-align: center;
@@ -56,16 +57,49 @@
         }
         .container {
 			width: 80%;
-			margin-top: 8rem;
+			margin-top: 6rem;
             margin-right: auto;
 			margin-left: auto;
 			color: white;
         }
-        h1 {
-            margin-top: 1rem;
+        .medium-stories {
+			width: 60%;
+			margin-top: 2rem;
+            margin-bottom: 8rem;
+            margin-right: auto;
+			margin-left: auto;
+            text-align: left;
+			color: white;
+            font-size: x-large;
         }
-        p {
-            margin-bottom: 1rem;
+        .medium-stories a {
+            color: gray;
+            text-decoration: none;
+        }
+        .medium-stories a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            text-decoration: underline;
+        }
+        footer {
+            background-color: black;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -85,6 +119,21 @@
         <p>Hello, I'm Zachary Pollack. This is my personal website where I track my projects, blog posts, and more.</p>
         <p>Feel free to explore!</p>
     </div>
+    <div class="medium-stories">
+        <p style = "font:Times, serif; font-size:30px; text-decoration:underline;" >Latest Blog Posts</p>
+        {{ range $_, $story := .Stories }}
+        <a href="{{ $story.Link }}">{{ $story.Title }}</a>  
+        <br>
+        <br>
+        {{ end }}
+    </div>
+    <footer>
+        <div class="footer-links">
+            <a href="{{.LinkedIn}}"><i class="fab fa-linkedin" style="font-size:36px;color:rgb(255, 255, 255)"></i></a>  
+            <a href="{{.GitHub}}"><i class="fab fa-github" style="font-size:36px;color:rgb(255, 255, 255)"></i></a>
+            <a href="{{.Medium}}"><i class="fab fa-medium" style="font-size:36px;color:rgb(255, 255, 255)"></i></a>
+        </div>
+    </footer>
 </body>
 </html>
 {{end}}

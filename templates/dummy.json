@@ -1,0 +1,24 @@
+{
+    "links": [
+        { 
+            "title": "Ansible k3s end-to-end playbooks (Planned)",
+            "link": "https://medium.com/@zep283" 
+        },
+        { 
+            "title": "Golang Echo HTMX Website with Full CICD stack (Planned)",
+            "link": "https://medium.com/@zep283" 
+        },
+        { 
+            "title": "Full Stack Physical Library Management Application (Planned)",
+            "link": "https://medium.com/@zep283" 
+        },
+        { 
+            "title": "Chef vs Ansible IaC comparison (Planned)",
+            "link": "https://medium.com/@zep283" 
+        },
+        { 
+            "title": "Jellyfin Horizontal Scaling through rffmpeg (Planned)",
+            "link": "https://medium.com/@zep283" 
+        }
+    ]
+}

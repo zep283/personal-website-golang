@@ -1,4 +1,4 @@
-{{define "about"}}
+{{define "blog"}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,12 +55,24 @@
         .header-nav a:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-        .container {
-			width: 80%;
-			margin-top: 8rem;
+        .medium-stories {
+			width: 60%;
+			margin-top: 5rem;
+            margin-bottom: 5rem;
             margin-right: auto;
 			margin-left: auto;
+            text-align: left;
 			color: white;
+            font-size: x-large;
+        }
+        .medium-stories a {
+            color: gray;
+            text-decoration: none;
+        }
+        .medium-stories a:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            text-decoration: underline;
         }
         footer {
             background-color: black;
@@ -96,8 +108,13 @@
             </nav>
         </div>
     </header>
-    <div class="container">
-        <p>Hello, I'm Zachary Pollack. This is my personal website where I track my projects, blog posts, and more.</p>
+    <div class="medium-stories">
+        <p style = "font:Times, serif; font-size:40px; text-decoration:underline; text-align: center;" >Latest Blog Posts</p>
+        {{ range $_, $story := .Stories }}
+        <a href="{{ $story.Link }}">{{ $story.Title }}</a>  
+        <br>
+        <br>
+        {{ end }}
     </div>
     <footer>
         <div class="footer-links">
