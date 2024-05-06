@@ -60,6 +60,8 @@ header {
     color: white;
     line-height: 1.8;
     font-size: large;
+    padding-bottom: 4rem;
+    padding-top: 0rem;
 }
 .medium-stories {
     width: 80%;
