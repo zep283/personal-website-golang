@@ -13,7 +13,7 @@ RUN go build -o self-zep-lab
 FROM alpine:3.16 as production
 
 COPY --from=builder /home/self-zep-lab .
-COPY --from=builder /home/templates ./templates
+COPY --from=builder /home/web ./web
 
 EXPOSE 8080 
 CMD ./self-zep-lab
