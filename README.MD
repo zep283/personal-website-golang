@@ -16,3 +16,6 @@ Simple golang website (:
     - `docker pull zep283/personal-web-golang:latest`
     - `docker run -d -p 8080:8080 zep283/personal-web-golang`
 10. `helm upgrade --install self . -n personal-web`
+
+## Notes
+- Echo needs some additional static code to serve CSS files if style sheet is separate from HTML
