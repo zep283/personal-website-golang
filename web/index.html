@@ -17,8 +17,8 @@
         <p>Feel free to explore!</p>
     </div>
     <div class="medium-stories">
-        <p style="font:Times, serif; font-size:30px; text-decoration:underline;" >Latest Blog Posts</p>
-        {{ range $_, $story := .Stories }}
+        <a href="/blog"><p style="color: white; font:Times, serif; font-size:30px; text-decoration:underline;" >Latest Blog Posts</p></a>  
+        {{ range $_, $story := .LatestStories }}
         <a href="{{ $story.Link }}">{{ $story.Title }}</a>  
         <br>
         <br>

@@ -48,15 +48,17 @@ func main() {
 	mediumStories := ParseMediumRSSFeed()
 
 	info := struct {
-		LinkedIn string
-		GitHub   string
-		Medium   string
-		Stories  []Story
+		LinkedIn      string
+		GitHub        string
+		Medium        string
+		Stories       []Story
+		LatestStories []Story
 	}{
-		LinkedIn: "http://linkedin.com/in/zacpollack/",
-		GitHub:   "https://github.com/zep283",
-		Medium:   "https://medium.com/@zep283",
-		Stories:  mediumStories,
+		LinkedIn:      "http://linkedin.com/in/zacpollack/",
+		GitHub:        "https://github.com/zep283",
+		Medium:        "https://medium.com/@zep283",
+		Stories:       mediumStories,
+		LatestStories: mediumStories[0:3],
 	}
 
 	e.GET("/", func(e echo.Context) error {
