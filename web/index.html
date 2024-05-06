@@ -10,12 +10,14 @@
 </head>
 <body>
     {{template "header" .}}
-    <div class="container">
-        <p>Hello, I'm Zachary Pollack. This is my personal website where I track my projects, blog posts, and more.</p>
+    <div class="homeblurb">
+        <p style="font-size:xx-large; text-align: center;">Welcome!</p>
+        <p>My name is Zachary Pollack. This my personal website where I track my projects, blog posts, and more.</p>
+        <p>I intially built this website to get my feet wet with GitHub Actions, ArgoCD, and golang. Largely my software development experience has been backend focused, so this site was also great exposure to HTML, CSS and frontend broadly.</p>
         <p>Feel free to explore!</p>
     </div>
     <div class="medium-stories">
-        <p style = "font:Times, serif; font-size:30px; text-decoration:underline;" >Latest Blog Posts</p>
+        <p style="font:Times, serif; font-size:30px; text-decoration:underline;" >Latest Blog Posts</p>
         {{ range $_, $story := .Stories }}
         <a href="{{ $story.Link }}">{{ $story.Title }}</a>  
         <br>

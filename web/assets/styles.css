@@ -42,15 +42,28 @@ header {
 .header-nav a:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
-.container {
+.homeblurb {
     width: 80%;
     margin-top: 8rem;
     margin-right: auto;
     margin-left: auto;
+    text-align: left;
+    font-size: large;
+    line-height: 1.6;
     color: white;
 }
+.aboutme {
+    width: 80%;
+    margin-top: 8rem;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+    color: white;
+    line-height: 1.8;
+    font-size: large;
+}
 .medium-stories {
-    width: 60%;
+    width: 80%;
     margin-top: 2rem;
     margin-bottom: 8rem;
     margin-right: auto;
