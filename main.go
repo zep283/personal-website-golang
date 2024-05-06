@@ -8,6 +8,11 @@ import (
 	"golang.org/x/time/rate"
 )
 
+type HtmlPage struct {
+	Name string
+	Path string
+}
+
 func main() {
 	e := echo.New()
 
@@ -18,16 +23,40 @@ func main() {
 		rate.Limit(20),
 	)))
 
+	htmlPages := []HtmlPage{
+		{
+			Name: "index",
+			Path: "templates/index.html",
+		},
+		{
+			Name: "about",
+			Path: "templates/about.html",
+		},
+		{
+			Name: "blog",
+			Path: "templates/blog.html",
+		},
+		{
+			Name: "projects",
+			Path: "templates/projects.html",
+		},
+	}
+
 	// This will initiate our template renderer
-	NewTemplateRenderer(e, "templates/*.html")
+	e.Renderer = RegisterTemplates(htmlPages)
 
 	mediumStories := ParseMediumRSSFeed()
 
-	info := map[string]interface{}{
-		"LinkedIn": "http://linkedin.com/in/zacpollack/",
-		"GitHub":   "https://github.com/zep283",
-		"Medium":   "https://medium.com/@zep283",
-		"Stories":  mediumStories,
+	info := struct {
+		LinkedIn string
+		GitHub   string
+		Medium   string
+		Stories  []Story
+	}{
+		LinkedIn: "http://linkedin.com/in/zacpollack/",
+		GitHub:   "https://github.com/zep283",
+		Medium:   "https://medium.com/@zep283",
+		Stories:  mediumStories,
 	}
 
 	e.GET("/", func(e echo.Context) error {

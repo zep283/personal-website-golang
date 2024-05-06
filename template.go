@@ -7,25 +7,25 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Template struct {
-	Templates *template.Template
+type TemplateRegistry struct {
+	templates map[string]*template.Template
 }
 
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.Templates.ExecuteTemplate(w, name, data)
+func (t *TemplateRegistry) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	return t.templates[name].Execute(w, data)
 }
 
-func NewTemplateRenderer(e *echo.Echo, paths ...string) {
-	tmpl := &template.Template{}
-	for i := range paths {
-		template.Must(tmpl.ParseGlob(paths[i]))
+func RegisterTemplates(htmlPages []HtmlPage) *TemplateRegistry {
+	templates := make(map[string]*template.Template)
+	for _, page := range htmlPages {
+		templates[page.Name] = template.Must(
+			template.ParseFiles(
+				page.Path,
+				"templates/header.html",
+				"templates/footer.html"))
 	}
-	t := newTemplate(tmpl)
-	e.Renderer = t
-}
-
-func newTemplate(templates *template.Template) echo.Renderer {
-	return &Template{
-		Templates: templates,
+	t := &TemplateRegistry{
+		templates: templates,
 	}
+	return t
 }
