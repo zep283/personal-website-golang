@@ -22,21 +22,20 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1rem;
-    margin-right: 4rem;
-    margin-left: 4rem;
+    padding: 0 0.5rem;
+    margin-right: 1rem;
 }
 .header-logo {
     background: transparent;
 }
 .header-nav {
     display: flex;
-    gap: 1rem;
+    gap: 0.25rem;
 }
 .header-nav a {
     color: white;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     transition: background-color 0.3s;
 }
 .header-nav a:hover {
