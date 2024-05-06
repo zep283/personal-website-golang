@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>self.zep-lab.dev</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    {{template "styles" .}}
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
     {{template "header" .}}
-    <div class="medium-stories" style="margin-top: 5rem;margin-bottom: 5rem;">
-        <p style = "font:Times, serif; font-size:40px; text-decoration:underline; text-align: center;" >Latest Blog Posts</p>
+    <div class="medium-stories" style="margin-top: 8rem;margin-bottom: 5rem;">
+        <p style = "font:Times, serif; font-size:40px;" >Latest Blog Posts</p>
         {{ range $_, $story := .Stories }}
         <a href="{{ $story.Link }}">{{ $story.Title }}</a>  
         <br>

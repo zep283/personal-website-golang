@@ -21,7 +21,6 @@ func RegisterTemplates(htmlPages []HtmlPage) *TemplateRegistry {
 		templates[page.Name] = template.Must(
 			template.ParseFiles(
 				page.Path,
-				"web/templates/styles.tmpl",
 				"web/templates/header.tmpl",
 				"web/templates/footer.tmpl"))
 	}

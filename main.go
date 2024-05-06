@@ -16,6 +16,8 @@ type HtmlPage struct {
 func main() {
 	e := echo.New()
 
+	e.Static("/static", "web/assets")
+
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Recover())
 	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(
