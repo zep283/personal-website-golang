@@ -41,7 +41,7 @@ func ParseMediumRSSFeed() []Story {
 }
 
 func dummyLinks(stories []Story) []Story {
-	jsonFile, err := os.Open("./templates/dummy.json")
+	jsonFile, err := os.Open("./web/assets/dummy.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)

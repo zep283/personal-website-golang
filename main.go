@@ -16,7 +16,6 @@ type HtmlPage struct {
 func main() {
 	e := echo.New()
 
-	// Little bit of middleware for housekeeping
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Recover())
 	e.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(
@@ -26,23 +25,22 @@ func main() {
 	htmlPages := []HtmlPage{
 		{
 			Name: "index",
-			Path: "templates/index.html",
+			Path: "web/index.html",
 		},
 		{
 			Name: "about",
-			Path: "templates/about.html",
+			Path: "web/about.html",
 		},
 		{
 			Name: "blog",
-			Path: "templates/blog.html",
+			Path: "web/blog.html",
 		},
 		{
 			Name: "projects",
-			Path: "templates/projects.html",
+			Path: "web/projects.html",
 		},
 	}
 
-	// This will initiate our template renderer
 	e.Renderer = RegisterTemplates(htmlPages)
 
 	mediumStories := ParseMediumRSSFeed()
