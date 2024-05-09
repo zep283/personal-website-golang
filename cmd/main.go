@@ -3,20 +3,19 @@ package main
 import (
 	"net/http"
 
+	"github.com/zep283/personal-website-golang/internal/common"
+	"github.com/zep283/personal-website-golang/internal/medium"
+	"github.com/zep283/personal-website-golang/internal/template"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"golang.org/x/time/rate"
 )
 
-type HtmlPage struct {
-	Name string
-	Path string
-}
-
 func main() {
 	e := echo.New()
 
-	e.Static("/static", "web/assets")
+	e.Static("/static", "../web/assets")
 
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(middleware.Recover())
@@ -24,35 +23,35 @@ func main() {
 		rate.Limit(20),
 	)))
 
-	htmlPages := []HtmlPage{
+	htmlPages := []common.HtmlPage{
 		{
 			Name: "index",
-			Path: "web/index.html",
+			Path: "../web/index.html",
 		},
 		{
 			Name: "about",
-			Path: "web/about.html",
+			Path: "../web/about.html",
 		},
 		{
 			Name: "blog",
-			Path: "web/blog.html",
+			Path: "../web/blog.html",
 		},
 		{
 			Name: "projects",
-			Path: "web/projects.html",
+			Path: "../web/projects.html",
 		},
 	}
 
-	e.Renderer = RegisterTemplates(htmlPages)
+	e.Renderer = template.RegisterTemplates(htmlPages)
 
-	mediumStories := ParseMediumRSSFeed()
+	mediumStories := medium.ParseMediumRSSFeed()
 
 	info := struct {
 		LinkedIn      string
 		GitHub        string
 		Medium        string
-		Stories       []Story
-		LatestStories []Story
+		Stories       []common.Story
+		LatestStories []common.Story
 	}{
 		LinkedIn:      "http://linkedin.com/in/zacpollack/",
 		GitHub:        "https://github.com/zep283",

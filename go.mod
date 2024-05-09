@@ -1,4 +1,4 @@
-module personal-web-golang
+module github.com/zep283/personal-website-golang
 
 go 1.22.2
 

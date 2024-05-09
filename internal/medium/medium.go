@@ -1,4 +1,4 @@
-package main
+package medium
 
 import (
 	"encoding/json"
@@ -7,6 +7,7 @@ import (
 	"os"
 
 	gofeed "github.com/mmcdole/gofeed"
+	"github.com/zep283/personal-website-golang/internal/common"
 )
 
 type DummyStoryLinks struct {
@@ -18,17 +19,12 @@ type DummyStory struct {
 	Link  string `json:"link"`
 }
 
-type Story struct {
-	Title string
-	Link  string
-}
-
-func ParseMediumRSSFeed() []Story {
+func ParseMediumRSSFeed() []common.Story {
 	fp := gofeed.NewParser()
 	feed, _ := fp.ParseURL("https://medium.com/feed/@zep283")
-	var stories []Story
+	var stories []common.Story
 	for _, s := range feed.Items {
-		story := Story{
+		story := common.Story{
 			Title: s.Title,
 			Link:  s.Link,
 		}
@@ -40,8 +36,8 @@ func ParseMediumRSSFeed() []Story {
 	return stories
 }
 
-func dummyLinks(stories []Story) []Story {
-	jsonFile, err := os.Open("./web/assets/dummy.json")
+func dummyLinks(stories []common.Story) []common.Story {
+	jsonFile, err := os.Open("../web/assets/dummy.json")
 	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
@@ -54,7 +50,7 @@ func dummyLinks(stories []Story) []Story {
 	var dummyStories DummyStoryLinks
 	json.Unmarshal(byteValue, &dummyStories)
 	for _, s := range dummyStories.Links {
-		story := Story(s)
+		story := common.Story(s)
 		stories = append(stories, story)
 	}
 	return stories
