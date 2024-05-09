@@ -54,7 +54,7 @@ server:
         paths:
           - path: /
             pathType: Prefix
-    tls: []
+    tls:
       - hosts:
         - self.zep-lab.dev
         secretName: self-zep-lab-dev-tls
