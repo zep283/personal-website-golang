@@ -10,8 +10,13 @@
 </head>
 <body>
     {{template "header" .}}
-    <div class="aboutme">
-        <p>Hello, I'm Zachary Pollack. This is my personal website where I track my projects, blog posts, and more.</p>
+    <div class="medium-stories" style="margin-top: 8rem;margin-bottom: 5rem;">
+        <p style = "font:Times, serif; font-size:40px;" >Latest GitHub Projects</p>
+        {{ range $_, $repo := .GHRepos }}
+        <a href="{{ $repo.Url }}">{{ $repo.Name }} {{ $repo.Description }}</a>  
+        <br>
+        <br>
+        {{ end }}
     </div>
     {{template "footer" .}}
 </body>

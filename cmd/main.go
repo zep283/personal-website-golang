@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/zep283/personal-website-golang/internal/common"
+	"github.com/zep283/personal-website-golang/internal/github"
 	"github.com/zep283/personal-website-golang/internal/medium"
 	"github.com/zep283/personal-website-golang/internal/template"
 
@@ -46,18 +47,22 @@ func main() {
 
 	mediumStories := medium.ParseMediumRSSFeed()
 
+	githubRepos := github.GetRepos()
+
 	info := struct {
 		LinkedIn      string
 		GitHub        string
 		Medium        string
 		Stories       []common.Story
 		LatestStories []common.Story
+		GHRepos       []common.Repo
 	}{
 		LinkedIn:      "http://linkedin.com/in/zacpollack/",
 		GitHub:        "https://github.com/zep283",
 		Medium:        "https://medium.com/@zep283",
 		Stories:       mediumStories,
 		LatestStories: mediumStories[0:3],
+		GHRepos:       githubRepos,
 	}
 
 	e.GET("/", func(e echo.Context) error {
