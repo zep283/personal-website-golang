@@ -47,7 +47,7 @@ func main() {
 
 	mediumStories := medium.ParseMediumRSSFeed()
 
-	githubRepos := github.GetRepos()
+	githubRepos := github.GetRepos("zep283")
 
 	info := struct {
 		LinkedIn      string
@@ -56,6 +56,7 @@ func main() {
 		Stories       []common.Story
 		LatestStories []common.Story
 		GHRepos       []common.Repo
+		LatestGHRepos []common.Repo
 	}{
 		LinkedIn:      "http://linkedin.com/in/zacpollack/",
 		GitHub:        "https://github.com/zep283",
@@ -63,6 +64,7 @@ func main() {
 		Stories:       mediumStories,
 		LatestStories: mediumStories[0:3],
 		GHRepos:       githubRepos,
+		LatestGHRepos: githubRepos[0:3],
 	}
 
 	e.GET("/", func(e echo.Context) error {

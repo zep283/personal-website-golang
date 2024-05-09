@@ -10,12 +10,14 @@
 </head>
 <body>
     {{template "header" .}}
-    <div class="medium-stories" style="margin-top: 8rem;margin-bottom: 5rem;">
+    <div class="github-projects">
         <p style = "font:Times, serif; font-size:40px;" >Latest GitHub Projects</p>
         {{ range $_, $repo := .GHRepos }}
-        <a href="{{ $repo.Url }}">{{ $repo.Name }} {{ $repo.Description }}</a>  
-        <br>
-        <br>
+        <div class="repo">
+            <h3>{{ $repo.Name }}</h3>
+            <p>{{ $repo.Description }}</p>
+            <a href="{{ $repo.Url }}" target="_blank">View on GitHub</a>
+        </div>
         {{ end }}
     </div>
     {{template "footer" .}}

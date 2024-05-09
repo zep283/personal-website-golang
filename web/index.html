@@ -16,12 +16,22 @@
         <p>I intially built this website to get my feet wet with GitHub Actions, ArgoCD, and golang. Largely my software development experience has been backend focused, so this site was also great exposure to HTML, CSS and frontend broadly.</p>
         <p>Feel free to explore!</p>
     </div>
-    <div class="medium-stories">
+    <div class="medium-stories" style="margin-bottom: 0rem;">
         <a href="/blog"><p style="color: white; font:Times, serif; font-size:30px; text-decoration:underline;" >Latest Blog Posts</p></a>  
         {{ range $_, $story := .LatestStories }}
         <a href="{{ $story.Link }}">{{ $story.Title }}</a>  
         <br>
         <br>
+        {{ end }}
+    </div>
+    <div class="github-projects" style="margin-top: 0rem;">
+        <p style = "font:Times, serif; text-decoration:underline; font-size:30px;" >Latest GitHub Projects</p>
+        {{ range $_, $repo := .LatestGHRepos }}
+        <div class="repo" style = "font-size:20px;">
+            <h3>{{ $repo.Name }}</h3>
+            <p >{{ $repo.Description }}</p>
+            <a href="{{ $repo.Url }}" target="_blank">View on GitHub</a>
+        </div>
         {{ end }}
     </div>
     {{template "footer" .}}

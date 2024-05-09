@@ -2,7 +2,6 @@ package github
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -10,8 +9,8 @@ import (
 	"github.com/zep283/personal-website-golang/internal/common"
 )
 
-func GetRepos() []common.Repo {
-	resp, err := http.Get("https://api.github.com/users/zep283/repos")
+func GetRepos(username string) []common.Repo {
+	resp, err := http.Get("https://api.github.com/users/" + username + "/repos")
 
 	if err != nil {
 		log.Fatalln(err)
@@ -23,7 +22,6 @@ func GetRepos() []common.Repo {
 	}
 	//Convert the body to type string
 	sb := string(body)
-	fmt.Print(sb)
 
 	var jsonMap []map[string]interface{}
 	json.Unmarshal([]byte(sb), &jsonMap)

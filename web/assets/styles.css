@@ -82,6 +82,35 @@ header {
     background-color: rgba(255, 255, 255, 0.1);
     text-decoration: underline;
 }
+.github-projects {
+    width: 80%;
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: left;
+    color: white;
+    font-size: x-large;
+}
+.github-projects a {
+    color: gray;
+    text-decoration: none;
+}
+.github-projects a:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: underline;
+}
+.repo {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 80%;
+}
+.repo h3 {
+    margin-top: 0;
+}
 footer {
     background-color: black;
     color: white;
